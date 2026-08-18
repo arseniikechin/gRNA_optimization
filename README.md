@@ -1,8 +1,8 @@
-# RL-gRNA-Optimisation
+# RL-gRNA-Optimization
 
-> **"A reinforcement learning agent discovers thermodynamically grounded mutation rules for CRISPR guide RNA optimisation"**
+> **"A reinforcement learning agent discovers thermodynamically grounded mutation rules for CRISPR guide RNA optimization"**
 
-A PPO-based reinforcement learning agent that edits 20-nt CRISPR guide RNAs to optimise a composite objective combining off-target specificity, GC-content preference, and homopolymer penalty.
+A PPO-based reinforcement learning agent that edits 20-nt CRISPR guide RNAs to optimize a composite objective combining off-target specificity, GC-content preference, and homopolymer penalty.
 
 ---
 
