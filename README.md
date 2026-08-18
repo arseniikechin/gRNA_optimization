@@ -1,6 +1,4 @@
-#gRNA-Optimization
-
-> **Thermodynamically guided CRISPR spacer optimization: strategy-dependent off-target trade-offs**
+ **Thermodynamically guided CRISPR spacer optimization: strategy-dependent off-target trade-offs**
 
 ---
 
