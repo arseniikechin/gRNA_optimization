@@ -67,7 +67,7 @@ energy/                           # CRISPRspec / CRISPRoff energy tables
 
 Run scripts from the **repository root**. RL modules import `RL.*`.
 
-**Data.** Bos taurus ARS-UCD2.0 (RefSeq GCF_002263795.3). Training used 400 diverse NGG spacers from five endocrine-receptor genes; evaluation used 100 IGF2R guides on a chromosome excluded from training. Optimization scored off-targets on `chr_3_7_20_21.fna`; Table 1 in the paper used the smaller locus FASTA.
+**Data.** Bos taurus ARS-UCD2.0 (RefSeq GCF_002263795.3). Training used 400 diverse NGG spacers from five endocrine-receptor genes; evaluation used 100 IGF2R guides on a chromosome excluded from training. Optimization scored off-targets on `chr_3_7_20_21.fna`.
 
 ---
 
