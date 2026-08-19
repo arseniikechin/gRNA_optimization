@@ -169,7 +169,6 @@ def main():
     min_mismatches = 1
     ref_fasta = None if getattr(args, "no_off_target", False) else args.reference_fasta
     use_crisprspec = bool(ref_fasta)
-    genome_seq = None
     if ref_fasta:
         if not os.path.isabs(ref_fasta):
             ref_fasta = os.path.normpath(os.path.join(_REPO_ROOT, ref_fasta))
@@ -188,8 +187,15 @@ def main():
             print("  Off-target scoring will be disabled. Provide --reference-fasta to a .fna file or use --no-off-target.")
             ref_fasta = None
             use_crisprspec = False
+    genome_seq = None
     if ref_fasta:
         print(f"Off-target: enabled, reference: {ref_fasta}")
+        # Load the genome once and reuse the same object for every sequence, instead
+        # of re-reading the FASTA (and re-transferring to GPU) on each iteration.
+        from RL.grna_rl_adapters import load_genome
+        genome_seq = load_genome(ref_fasta)
+        print(f"Genome loaded once: {len(genome_seq)} bp")
+        ref_fasta = None  # pass genome_seq directly to the env
     elif use_crisprspec is False and not getattr(args, "no_off_target", False):
         print("Off-target: disabled (reference FASTA not found or --no-off-target)")
 

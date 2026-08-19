@@ -349,6 +349,11 @@ def make_env(
             crisprspec_weight=crisprspec_weight,
             gc_weight=gc_weight,
             homopolymer_weight=homopolymer_weight,
+            # Wire the CLI weights into the actual reward terms. The reward uses the
+            # *_penalty_weight fields, so map the user-facing weights onto them.
+            off_target_weight=crisprspec_weight,
+            gc_penalty_weight=gc_weight,
+            homopolymer_penalty_weight=homopolymer_weight,
             use_cuda_offtarget=use_cuda_offtarget,
             reference_fasta_path=reference_fasta_path,
         )
@@ -439,6 +444,13 @@ def train(
             else:
                 print(f"           Genome file not found: {genome_path}")
             print(f"           Training will continue but CRISPRspec scores will be 0")
+    elif use_crisprspec and ref_fasta:
+        # Load the reference genome once here and share the same string object across
+        # all (training + eval) environments, instead of re-reading the FASTA per env.
+        from RL.grna_rl_adapters import load_genome
+        genome_seq = load_genome(ref_fasta)
+        print(f"  [CRISPRspec] Genome loaded once: {len(genome_seq)} bp from {ref_fasta}")
+        ref_fasta = None  # pass genome_seq directly; avoid per-env reload
     
     print(f"  Mutable region: positions 0-{20-seed_len-1} ({20-seed_len} positions)")
     print(f"  Seed region (fixed): positions {20-seed_len}-19 ({seed_len} positions)")
