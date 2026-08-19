@@ -1,0 +1,52 @@
+{
+  "experiment": "phase3_minfb_20260623_155654_llm",
+  "out_csv": "results/phase3/minfb_20260623_155654/llm.csv",
+  "timestamp": "2026-06-23T19:00:31",
+  "config": {
+    "proposer": "llm",
+    "model": "openai/gpt-oss-120b",
+    "aggressiveness": "minimal",
+    "prompt_variant": "gRNA-domain",
+    "prompt_note_variant": "ultra",
+    "minimal_feedback": true,
+    "reasoning_effort": "medium",
+    "temperature": 0.7,
+    "top_k": 5,
+    "recent_n": 3,
+    "max_iters": 20,
+    "patience": 0,
+    "seed_len": 8,
+    "max_mismatches": 4,
+    "ot_tiebreak": 0.0,
+    "zero_edit_penalty": 0.5,
+    "genome": "data/chr_3_7_20_21.fna",
+    "n_guides_arg": 0,
+    "seed": 0
+  },
+  "prompts": {
+    "domain_preamble": "You are optimizing a CRISPR-Cas9 guide RNA spacer: a 20-nucleotide DNA string that directs Cas9 to a genomic target next to an NGG PAM. The danger is off-target cleavage at other genomic sites that tolerate a few mismatches to the guide. Key biophysics: off-target sites already carry mismatches to the guide, so each substitution you introduce in the editable region compounds the thermodynamic destabilization of those off-target heteroduplexes while the on-target duplex (stabilized by the fixed PAM-proximal seed) tolerates it. You have a tight substitution budget, so spend it on the positions and base changes that most improve specificity and remove genomic off-target sites.",
+    "aggressiveness_text": "Optimize ITERATIVELY, like hill-climbing on the best guide so far. Change one substitution at a time: keep edits that lowered the score (better specificity / fewer off-targets) and revert edits that raised it. Reuse your limited budget on the highest-impact positions rather than spreading edits thinly.",
+    "target_description": "Design a CRISPR-Cas9 guide RNA spacer that MINIMIZES off-target cleavage while preserving on-target binding. The score is a thermodynamic composite (CRISPRspec RNA:DNA hybridization specificity, with soft GC-content and homopolymer penalties); lower reported score = better guide. Productive substitutions sit in the PAM-distal mutable region and add thermodynamic mismatch penalties at off-target sites (which already carry mismatches) while the seed region keeps on-target binding intact. Prefer C/G substitutions that create strongly destabilizing mismatches; keep GC in 40-60% and avoid runs of >3 identical bases. Once specificity is maxed, prefer candidates with the fewest genomic off-target sites (reported as n_off_targets).\nBudget guidance: you may use up to 4 substitutions, but treat 4 as a ceiling, not a target. In practice the best guides need only 1-2 well-chosen substitutions — a few high-impact edits usually improve specificity while keeping the spacer from accidentally matching new genomic locations, whereas many edits tend to create new off-target sites. Aim for the best result achievable with about 1-2 substitutions; add a 3rd or 4th only when the candidate is clearly still poor (specificity low or many off-targets remain), and prefer to keep the edit count low rather than spending the whole budget.",
+    "bounds_description_example": "- spacer: a 20-letter DNA string over {A,C,G,T} (no U, no N).\n- Editable positions: 0..11 (1-indexed 1..12, the PAM-distal 5' region). You may substitute bases ONLY here.\n- FIXED positions: 12..19 (the PAM-proximal seed region) must remain exactly 'AATTTTTT'. Changing them is rejected.\n- Edit budget: at most 4 substitutions relative to the original guide 'TTTATTAAAAAAAATTTTTT'. Exceeding it is rejected.\n- Substitutions only: same length (20), no insertions/deletions."
+  },
+  "metrics": {
+    "n_guides": 100,
+    "modified": 100,
+    "mean_edits": 2.56,
+    "mean_S_init": 0.8888,
+    "mean_S_final": 0.9857,
+    "OT_total_init": 10667,
+    "OT_total_final": 2608,
+    "OT_mean_init": 106.67,
+    "OT_mean_final": 26.08,
+    "OT_reduction_pct": 75.6,
+    "guides_reduced_OT": 69,
+    "guides_with_OT": 99,
+    "guides_to_zero_OT": 0,
+    "new_OT_in_specific": 1,
+    "total_prompt_tokens": 2087642,
+    "total_completion_tokens": 1236909,
+    "total_evals": 1274,
+    "wall_seconds": 11008.9
+  }
+}
