@@ -20,8 +20,6 @@ with $w_{\mathrm{spec}}=1.0$ and $w_{\mathrm{gc}}=w_{\mathrm{hp}}=0.1$:
 | Score-guided search | non-learning baseline: 20 random mutants, keep $\arg\max S$; edit count matched to PPO | `Score-guided search/` |
 | Iterative LLM | prompt-guided `openai/gpt-oss-120b`, no fine-tuning | `LLM/` |
 
-On 100 held-out IGF2R guides every strategy reduced predicted off-target burden (38.6–78.3%). The LLM gave the largest aggregate reduction; PPO had the lowest rate of new off-targets in initially clean guides (15%). Independent metrics (CFD, CRISPRBert, Doench Rule Set 2) were not in the objective.
-
 ---
 
 ## Environment (shared by all strategies)
