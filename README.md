@@ -342,8 +342,6 @@ python RL/metrics/compute_eval_100_doench_offtarget_cfd_crisprbert.py \
 }
 ```
 
-Funding: Russian Science Foundation, grant 25-11-00367.
-
 ---
 
 ## License
