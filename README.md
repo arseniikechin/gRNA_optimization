@@ -1,4 +1,4 @@
-**Thermodynamically guided CRISPR spacer optimization: strategy-dependent off-target trade-offs**
+# Thermodynamically guided CRISPR spacer optimization: strategy-dependent off-target trade-offs
 
 Code and data for the paper: a controlled comparison of **five** search strategies that refine 20-nt SpCas9 spacers under one thermodynamically grounded objective. The PAM-proximal seed is fixed; at most four substitutions are allowed in the PAM-distal region.
 
